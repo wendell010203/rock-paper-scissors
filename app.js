@@ -60,7 +60,8 @@ function game(rounds) {
     for(let i = 1; i <= rounds; i++){
         console.log(`Game ${i}`);
 
-        console.log(round(prompt("rock paper scissors?").toUpperCase() , getComputerChoice().toUpperCase()));
+        // console.log(round(prompt("rock paper scissors?").toUpperCase() , getComputerChoice().toUpperCase()));
+        console.log(round("rock".toUpperCase() , getComputerChoice().toUpperCase()));
     
         console.log(`Player: ${pscore} - Computer ${cscore}`);
     }
@@ -74,4 +75,4 @@ function game(rounds) {
     }
 }
 
-game(2);
+game(1);
