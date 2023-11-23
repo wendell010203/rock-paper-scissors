@@ -1,5 +1,11 @@
+let gameCount = 1;
 let pscore = 0;
 let cscore = 0;
+
+const rps = document.querySelector('.rpsContainer');
+const roundCounter = document.querySelector('.roundCounter');
+const roundContainer = document.querySelector('.roundContainer');
+const score = document.querySelector('.score');
 
 function rand(num){
     return Math.floor(Math.random()*num) + 1
@@ -8,15 +14,15 @@ function rand(num){
 function getComputerChoice(){
     switch (rand(3)) {
         case 1:
-            return "Rock"
+            return "ROCK"
             break;
 
         case 2:
-            return "Paper"
+            return "PAPER"
             break;
 
         case 3:
-            return "Scissors"
+            return "SCISSORS"
             break;
     
         default:
@@ -25,54 +31,54 @@ function getComputerChoice(){
 }
 
 function round(pselect , cselect) {
-    if (pselect == cselect) {
-        return `Tie! ${pselect} ties with ${cselect}`;
-    }else if (pselect == "ROCK") {
-        if (cselect == "SCISSORS") {
-            pscore++;
-            return `You Win! ${pselect} beats ${cselect}`;
-        }else{
-            cscore++;
-            return `You Lose! ${cselect} beats ${pselect}`;
-        }
-    }else if (pselect == "PAPER") {
-        if (cselect == "ROCK") {
-            pscore++;
-            return `You Win! ${pselect} beats ${cselect}`;
-        }else{
-            cscore++;
-            return `You Lose! ${cselect} beats ${pselect}`;
-        }
-    }else if (pselect == "SCISSORS"){
-        if (cselect == "PAPER") {
-            pscore++;
-            return `You Win! ${pselect} beats ${cselect}`;
-        }else{
-            cscore++;
-            return `You Lose! ${cselect} beats ${pselect}`;
-        }
-    }else{
-        console.log(`${pselect} is not a choice. choose between rock, paper, scissors`);
+    switch (pselect) {
+        case cselect:
+            return `Tie! ${pselect} ties with ${cselect}`;
+            break;
+
+        case "ROCK":
+            if (cselect == "SCISSORS") {
+                pscore++;
+                return `You Win! ${pselect} beats ${cselect}`;
+            }else{
+                cscore++;
+                return `You Lose! ${cselect} beats ${pselect}`;
+            }
+            break;
+
+        case "PAPER":
+            if (cselect == "ROCK") {
+                pscore++;
+                return `You Win! ${pselect} beats ${cselect}`;
+            }else{
+                cscore++;
+                return `You Lose! ${cselect} beats ${pselect}`;
+            }
+            break;
+
+        case "SCISSORS":
+            if (cselect == "PAPER") {
+                pscore++;
+                return `You Win! ${pselect} beats ${cselect}`;
+            }else{
+                cscore++;
+                return `You Lose! ${cselect} beats ${pselect}`;
+            }
+            break;
     }
 }
 
-function game(rounds) {
-    for(let i = 1; i <= rounds; i++){
-        console.log(`Game ${i}`);
+function game(pselect) {
+    roundCounter.innerText = `Game ${gameCount}`;
+    gameCount++;
 
-        // console.log(round(prompt("rock paper scissors?").toUpperCase() , getComputerChoice().toUpperCase()));
-        console.log(round("rock".toUpperCase() , getComputerChoice().toUpperCase()));
-    
-        console.log(`Player: ${pscore} - Computer ${cscore}`);
-    }
+    roundContainer.innerText = round(pselect , getComputerChoice());
 
-    if(pscore == cscore){
-        console.log("its a tie");
-    }else if(pscore > cscore) {
-        console.log("you win");
-    }else{
-        console.log("you lose");
-    }
+    score.innerText = `Player: ${pscore} - Computer ${cscore}`;
 }
 
-game(1);
+rps.addEventListener('click' , (e) => {
+    let pselect = e.target.innerText;
+
+    game(pselect);
+});
